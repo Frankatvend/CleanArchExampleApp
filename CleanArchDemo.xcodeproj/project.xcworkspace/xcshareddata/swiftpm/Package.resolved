@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "HoustonUI",
+        "repositoryURL": "git@github.com:vend/iOS.HoustonUI.git",
+        "state": {
+          "branch": null,
+          "revision": "c17db4e58c596eeb7dd0f102ac697d0f587d515b",
+          "version": "0.2.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
