@@ -21,11 +21,11 @@ class RealLoginInteractors: LoginInteractors {
     }
     
     func validateUsername(_ text: String) {
-        appState.isUsernameValid = isAlphanumeric(text)
+        appState.loginStore.isUsernameValid = isAlphanumeric(text)
     }
     
     func validatePassword(_ text: String) {
-        appState.isPasswordValid = isAlphanumeric(text)
+        appState.loginStore.isPasswordValid = isAlphanumeric(text)
     }
     
     private func isAlphanumeric(_ text: String) -> Bool {
@@ -33,7 +33,7 @@ class RealLoginInteractors: LoginInteractors {
     }
     
     func login() {
-        appState.isLoggedIn = true
+        appState.loginStore.isLoggedIn = true
     }
 }
 

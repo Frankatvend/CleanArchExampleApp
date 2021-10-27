@@ -29,13 +29,13 @@ class RealUserlistInteractors: UserlistInteractors {
             .sink(receiveCompletion: { error in
                 //TODO: Handle error
             }, receiveValue: {[weak self] users in
-                self?.appState.users = users
+                self?.appState.userStore.users = users
             })
             .store(in: &doggeBag)
     }
     
     func deleteUserAt(_ index: IndexSet) {
-        appState.users.remove(atOffsets: index)
+        appState.userStore.users.remove(atOffsets: index)
     }
     
 }

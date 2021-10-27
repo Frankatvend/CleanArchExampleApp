@@ -21,7 +21,7 @@ struct UserListView: View {
     
     var userlist: some View {
         List {
-            ForEach(appState.users) { user in
+            ForEach(appState.userStore.users) { user in
                 NavigationLink(destination: UserDetailsView(user: user)) {
                     Text(user.username)
                 }

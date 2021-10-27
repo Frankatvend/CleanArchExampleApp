@@ -9,8 +9,16 @@ import Foundation
 import Combine
 
 class AppState: ObservableObject {
-    @Published var users: [User] = []
-    @Published var isUsernameValid: Bool = true
-    @Published var isPasswordValid: Bool = true
-    @Published var isLoggedIn: Bool = false
+    @Published var userStore: UserStore = UserStore()
+    @Published var loginStore: LoginStore = LoginStore()
+}
+
+struct LoginStore {
+    var isUsernameValid: Bool = true
+    var isPasswordValid: Bool = true
+    var isLoggedIn: Bool = false
+}
+
+struct UserStore {
+    var users: [User] = []
 }

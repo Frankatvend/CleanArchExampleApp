@@ -27,7 +27,7 @@ struct LoginView: View {
             HTextField("Enter your username", text: $username, style: .regular) { _ in
                 appEnv.interactors.loginInteractor.validateUsername(username)
             }
-            if self.appState.isUsernameValid == false {
+            if self.appState.loginStore.isUsernameValid == false {
                 HText(text: "The username has to be alphanumeric.",
                       style: .supplementary,
                       textColor: Color.No.normal)
@@ -36,7 +36,7 @@ struct LoginView: View {
                 appEnv.interactors.loginInteractor.validatePassword(password)
             }
             
-            if self.appState.isPasswordValid == false {
+            if self.appState.loginStore.isPasswordValid == false {
                 HText(text: "The password has to be alphanumeric.",
                       style: .supplementary,
                       textColor: Color.No.normal)
@@ -50,10 +50,10 @@ struct LoginView: View {
                     Spacer()
                 }
             }
-            .disabled(!(self.appState.isUsernameValid && self.appState.isPasswordValid))
+            .disabled(!(self.appState.loginStore.isUsernameValid && self.appState.loginStore.isPasswordValid))
             .buttonStyle(HButtonStyle.primary)
 
-            NavigationLink(isActive: $appState.isLoggedIn) {
+            NavigationLink(isActive: $appState.loginStore.isLoggedIn) {
                 UserListView()
             } label: {
                 EmptyView()
