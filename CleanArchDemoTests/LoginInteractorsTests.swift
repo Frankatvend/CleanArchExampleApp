@@ -18,24 +18,29 @@ class LoginInteractorsTests: XCTestCase {
         interactor = RealLoginInteractors(appState: appState)
     }
 
-    func testIsAlphanumeric_emptyString_shouldBeFalse() {
-        XCTAssertFalse(interactor.validateUsername(""))
+    func testisUsernameValid_emptyString_shouldBeFalse() {
+        interactor.validateUsername("")
+        XCTAssertFalse(interactor.appState.isUsernameValid)
     }
     
-    func testIsAlphanumeric_letterOnly_shouldBeTrue() {
-        XCTAssertTrue(interactor.validateUsername("letter"))
+    func testisUsernameValid_letterOnly_shouldBeTrue() {
+        interactor.validateUsername("letter")
+        XCTAssertTrue(interactor.appState.isUsernameValid)
     }
     
-    func testIsAlphanumeric_numberOnly_shouldBeTrue() {
-        XCTAssertTrue(interactor.validateUsername("123"))
+    func testisUsernameValid_numberOnly_shouldBeTrue() {
+        interactor.validateUsername("123")
+        XCTAssertTrue(interactor.appState.isUsernameValid)
     }
     
-    func testIsAlphanumeric_letterAndNumber_shouldBeTrue() {
-        XCTAssertTrue(interactor.validateUsername("letter123"))
+    func testisUsernameValid_letterAndNumber_shouldBeTrue() {
+        interactor.validateUsername("letter123")
+        XCTAssertTrue(interactor.appState.isUsernameValid)
     }
     
-    func testIsAlphanumeric_specialChars_shouldBeFalse() {
-        XCTAssertFalse(interactor.validateUsername("letter123!@"))
+    func testisUsernameValid_specialChars_shouldBeFalse() {
+        interactor.validateUsername("letter123!@")
+        XCTAssertFalse(interactor.appState.isUsernameValid)
     }
 
 }
