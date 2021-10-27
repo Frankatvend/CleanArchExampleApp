@@ -9,6 +9,8 @@ import Foundation
 import Combine
 
 class AppState: ObservableObject {
-    //@Published var currentUser = User()
     @Published var users: [User] = []
+    @Published var isUsernameValid: Bool = true
+    @Published var isPasswordValid: Bool = true
+    @Published var isLoggedIn: Bool = false
 }

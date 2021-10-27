@@ -7,8 +7,9 @@
 
 
 protocol LoginInteractors: AnyObject {
-    func isAlphanumeric(_ text: String) -> Bool
-    func updateUsername(_ username: String)
+    func validateUsername(_ text: String)
+    func validatePassword(_ text: String)
+    func login()
 }
 
 class RealLoginInteractors: LoginInteractors {
@@ -19,22 +20,34 @@ class RealLoginInteractors: LoginInteractors {
         self.appState = appState
     }
     
-    func isAlphanumeric(_ text: String) -> Bool {
+    func validateUsername(_ text: String) {
+        appState.isUsernameValid = isAlphanumeric(text)
+    }
+    
+    func validatePassword(_ text: String) {
+        appState.isPasswordValid = isAlphanumeric(text)
+    }
+    
+    private func isAlphanumeric(_ text: String) -> Bool {
         return !text.isEmpty && (text.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil)
     }
     
-    func updateUsername(_ username: String) {
-//        appState.currentUser.username = username
+    func login() {
+        appState.isLoggedIn = true
     }
 }
 
 class MockLoginInteractors: LoginInteractors {
     
-    func updateUsername(_ username: String) {
+    func validatePassword(_ text: String) {
         
     }
     
-    func isAlphanumeric(_ text: String) -> Bool {
-        return true
+    func validateUsername(_ text: String) {
+        
+    }
+    
+    func login() {
+        
     }
 }

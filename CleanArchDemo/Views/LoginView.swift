@@ -10,52 +10,39 @@ import HoustonUI
 
 struct LoginView: View {
     @Environment(\.appEnv) var appEnv: AppEnvironment
+    @EnvironmentObject var appState: AppState
     
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var isUsernameValid: Bool = false
-    @State private var isPasswordValid: Bool = false
-    @State private var isLoggedIn: Bool = false
     
     var body: some View {
         NavigationView {
             credentialEntry
                 .navigationTitle("Login")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Next") {
-                            isLoggedIn = true
-                        }
-                        .disabled(!(isUsernameValid && isPasswordValid))
-                    }
-                }
-            
-        }
-        .fullScreenCover(isPresented: $isLoggedIn) {
-            UserListView()
         }
     }
     
     var credentialEntry: some View {
         LazyVStack(alignment: .leading) {
             HTextField("Enter your username", text: $username, style: .regular) { _ in
-                isUsernameValid = appEnv.interactors.loginInteractor.isAlphanumeric(username)
+                appEnv.interactors.loginInteractor.validateUsername(username)
             }
-            if isUsernameValid == false {
+            if self.appState.isUsernameValid == false {
                 HText(text: "The username has to be alphanumeric.",
                       style: .supplementary,
                       textColor: Color.No.normal)
             }
             HTextField("Enter your password", text: $password, style: .regular) { _ in
-                isPasswordValid = appEnv.interactors.loginInteractor.isAlphanumeric(password)
+                appEnv.interactors.loginInteractor.validatePassword(password)
             }
-            if isPasswordValid == false {
+            
+            if self.appState.isPasswordValid == false {
                 HText(text: "The password has to be alphanumeric.",
                       style: .supplementary,
                       textColor: Color.No.normal)
             }
             Button {
-                isLoggedIn = true
+                appEnv.interactors.loginInteractor.login()
             } label: {
                 HStack {
                     Spacer()
@@ -63,8 +50,15 @@ struct LoginView: View {
                     Spacer()
                 }
             }
-            .disabled(!(isUsernameValid && isPasswordValid))
+            .disabled(!(self.appState.isUsernameValid && self.appState.isPasswordValid))
             .buttonStyle(HButtonStyle.primary)
+
+            NavigationLink(isActive: $appState.isLoggedIn) {
+                UserListView()
+            } label: {
+                EmptyView()
+            }
+
         }
         .padding()
     }

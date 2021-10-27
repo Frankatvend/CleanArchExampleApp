@@ -19,23 +19,23 @@ class LoginInteractorsTests: XCTestCase {
     }
 
     func testIsAlphanumeric_emptyString_shouldBeFalse() {
-        XCTAssertFalse(interactor.isAlphanumeric(""))
+        XCTAssertFalse(interactor.validateUsername(""))
     }
     
     func testIsAlphanumeric_letterOnly_shouldBeTrue() {
-        XCTAssertTrue(interactor.isAlphanumeric("letter"))
+        XCTAssertTrue(interactor.validateUsername("letter"))
     }
     
     func testIsAlphanumeric_numberOnly_shouldBeTrue() {
-        XCTAssertTrue(interactor.isAlphanumeric("123"))
+        XCTAssertTrue(interactor.validateUsername("123"))
     }
     
     func testIsAlphanumeric_letterAndNumber_shouldBeTrue() {
-        XCTAssertTrue(interactor.isAlphanumeric("letter123"))
+        XCTAssertTrue(interactor.validateUsername("letter123"))
     }
     
     func testIsAlphanumeric_specialChars_shouldBeFalse() {
-        XCTAssertFalse(interactor.isAlphanumeric("letter123!@"))
+        XCTAssertFalse(interactor.validateUsername("letter123!@"))
     }
 
 }

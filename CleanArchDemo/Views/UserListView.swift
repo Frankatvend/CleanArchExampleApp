@@ -12,13 +12,11 @@ struct UserListView: View {
     @EnvironmentObject var appState: AppState
     
     var body: some View {
-        NavigationView {
-            userlist
-        }
-        .navigationTitle("Users")
-        .onAppear {
-            appEnv.interactors.userlistInteractor.fetchUsers()
-        }
+        userlist
+            .navigationTitle("Users")
+            .onAppear {
+                appEnv.interactors.userlistInteractor.fetchUsers()
+            }
     }
     
     var userlist: some View {
