@@ -14,18 +14,18 @@ protocol LoginInteractors: AnyObject {
 
 class RealLoginInteractors: LoginInteractors {
 
-    let appState: AppState
-    
-    init(appState: AppState) {
-        self.appState = appState
+    var store: LoginStore
+
+    init(store: LoginStore) {
+        self.store = store
     }
     
     func validateUsername(_ text: String) {
-        appState.loginStore.isUsernameValid = isAlphanumeric(text)
+        store.isUsernameValid = isAlphanumeric(text)
     }
     
     func validatePassword(_ text: String) {
-        appState.loginStore.isPasswordValid = isAlphanumeric(text)
+        store.isPasswordValid = isAlphanumeric(text)
     }
     
     private func isAlphanumeric(_ text: String) -> Bool {
@@ -33,7 +33,7 @@ class RealLoginInteractors: LoginInteractors {
     }
     
     func login() {
-        appState.loginStore.isLoggedIn = true
+        store.isLoggedIn = true
     }
 }
 

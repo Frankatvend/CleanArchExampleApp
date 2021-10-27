@@ -15,12 +15,12 @@ protocol UserlistInteractors: AnyObject {
 
 class RealUserlistInteractors: UserlistInteractors {
 
-    let appState: AppState
-    let API: UserAPI
+    private var store: UserStore
+    private let API: UserAPI
     private var doggeBag: Set<AnyCancellable> = []
     
-    init(appState: AppState, API: UserAPI) {
-        self.appState = appState
+    init(store: UserStore, API: UserAPI) {
+        self.store = store
         self.API = API
     }
     
@@ -29,25 +29,18 @@ class RealUserlistInteractors: UserlistInteractors {
             .sink(receiveCompletion: { error in
                 //TODO: Handle error
             }, receiveValue: {[weak self] users in
-                self?.appState.userStore.users = users
+                self?.store.users = users
             })
             .store(in: &doggeBag)
     }
     
     func deleteUserAt(_ index: IndexSet) {
-        appState.userStore.users.remove(atOffsets: index)
+        store.users.remove(atOffsets: index)
     }
     
 }
 
 class MockUserlistInteractors: UserlistInteractors {
-    let appState: AppState
-    let API: UserAPI
-    
-    init(appState: AppState, API: UserAPI) {
-        self.appState = appState
-        self.API = API
-    }
     
     func fetchUsers() {
         

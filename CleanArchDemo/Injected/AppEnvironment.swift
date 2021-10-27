@@ -28,17 +28,15 @@ extension EnvironmentValues {
 }
 
 struct Interactors {
-    let appState: AppState
     let loginInteractor: LoginInteractors
     let userlistInteractor: UserlistInteractors
     
-    init(appState: AppState, loginInteractor: LoginInteractors, userlistInteractor: UserlistInteractors) {
-        self.appState = appState
+    init(loginInteractor: LoginInteractors, userlistInteractor: UserlistInteractors) {
         self.loginInteractor = loginInteractor
         self.userlistInteractor = userlistInteractor
     }
     
     static var stub: Self {
-        .init(appState: AppState(), loginInteractor: MockLoginInteractors(), userlistInteractor: MockUserlistInteractors(appState: AppState(), API: MockUserAPI()))
+        .init(loginInteractor: MockLoginInteractors(), userlistInteractor: MockUserlistInteractors())
     }
 }

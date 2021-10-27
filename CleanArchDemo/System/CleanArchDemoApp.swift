@@ -14,7 +14,8 @@ struct CleanArchDemoApp: App {
     
     init() {
         appState = AppState()
-        let interactors = Interactors(appState: appState, loginInteractor: RealLoginInteractors(appState: appState), userlistInteractor: RealUserlistInteractors(appState: appState, API: RealUserAPI()))
+        let interactors = Interactors(loginInteractor: RealLoginInteractors(store: appState.loginStore),
+                                      userlistInteractor: RealUserlistInteractors(store: appState.userStore, API: RealUserAPI()))
         appEnv = AppEnvironment(interactors: interactors)
     }
     

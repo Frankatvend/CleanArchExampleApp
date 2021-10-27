@@ -9,16 +9,31 @@ import Foundation
 import Combine
 
 class AppState: ObservableObject {
+    
+    private var doggeBag: Set<AnyCancellable> = []
+    
     @Published var userStore: UserStore = UserStore()
     @Published var loginStore: LoginStore = LoginStore()
+    
+    init() {
+        loginStore.objectWillChange.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+        .store(in: &doggeBag)
+        
+        userStore.objectWillChange.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+        .store(in: &doggeBag)
+    }
 }
 
-struct LoginStore {
-    var isUsernameValid: Bool = true
-    var isPasswordValid: Bool = true
-    var isLoggedIn: Bool = false
+class LoginStore: ObservableObject {
+    @Published var isUsernameValid: Bool = true
+    @Published var isPasswordValid: Bool = true
+    @Published var isLoggedIn: Bool = false
 }
 
-struct UserStore {
-    var users: [User] = []
+class UserStore: ObservableObject {
+    @Published var users: [User] = []
 }
